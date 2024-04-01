@@ -98,3 +98,14 @@ Component
           ex) const navigate = useNavigate();
        4-2 라우팅할 곳에 경로 설정
           ex) navigate('/welcome')     
+
+------------------------------------------------
+  
+  Context에 State 값을 저장하여 서로 다른 Component에서 State 공유
+   1. Context 생성
+     ex) import { createContext } from "react";
+         const AuthContext = createContext()
+   
+   2. ConText에 State 넣기
+   
+   3. 생성된 컨텍스트를 다른 컴포넌트와 공유하기
