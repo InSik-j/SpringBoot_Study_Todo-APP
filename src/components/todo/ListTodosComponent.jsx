@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { retrieveALLTodosForUsernameApi, deleteTodoApi } from "./api/TodoApiService";
+import { useAuth } from "./security/AuthContext";
 
 function ListTodosComponent(){
     const today = new Date();
+
+    const authContext = useAuth()
+
+    const username = authContext.username
+
     const targetDate = new Date(today.getFullYear()+12, today.getMonth(), today.getDay());
 
     const [todos, setTodos] = useState([])
@@ -11,7 +17,7 @@ function ListTodosComponent(){
     useEffect( () => refreshTodos(), [])
 
     function refreshTodos(){
-        retrieveALLTodosForUsernameApi('in28minutes')
+        retrieveALLTodosForUsernameApi(username)
             .then( (response) => {
                 console.log(response.data)
                 setTodos(response.data)
@@ -22,7 +28,7 @@ function ListTodosComponent(){
 
     function deleteTodo(id){
         console.log("clicked"+ id)
-        deleteTodoApi('in28minutes', id)
+        deleteTodoApi(username, id)
             .then(
                 ()=>{
                     setMessage(`Delete of todo with ${id} successful`) // 삭제 성공 메세지 표시
