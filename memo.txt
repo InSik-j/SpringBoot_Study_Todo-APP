@@ -109,3 +109,31 @@ Component
    2. ConText에 State 넣기
    
    3. 생성된 컨텍스트를 다른 컴포넌트와 공유하기
+
+------------------------------------------------
+
+  axios를 이용하여 REST API 호출
+   1. Axios에 관한 의존성 추가
+     npm install axios
+   2. import하기
+     import axios from 'axios'
+   3. 요청 전송하기
+     get 요청 ex) axios.get('요청받을 주소')
+   then() : 성공적으로 응답을 받을 때 실행
+   catch() : 오류 응답을 받을 때 실행
+   finally() : 응답여부와 상관없이 실행
+
+   * Cross Origin Request
+    - 다른 포트에서의 요청.
+      기본적으로 거부하기 때문에 CORS 설정 필요
+         @Bean
+         public WebMvcConfigurer corsConfiqurer() {
+            return new WebMvcConfigurer() {
+               public void addCorsMappings(CorsRegistry registry) {
+                  // CORS 매핑
+                  registry.addMapping("/**") //  addMapping : 특정한 패턴에 대해 크로스 오리진 리퀘스트 처리를 가능하게 해줌 /** : 모두 활성화
+                        .allowedMethods("*") //  allowedMethods : 어떤 종류의 메서드가 허용되는 지 정의
+                        .allowedOrigins("http://localhost:3000"); allowedOrigins : 요청이 오는 주소 
+               }
+            };
+         }
