@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { excuteBasicAuthenticationService } from "../api/HelloWorldApiService";
+import { apiClient } from "../api/ApiClient";
 
 // Context에 State 값을 저장하여 서로 다른 Component에서 State 공유
 // 1 : context 생성
@@ -39,6 +40,14 @@ export default function AuthProvider({ children }){
                 setAuthenticated(true)
                 setUsername(username)
                 setToken(baToken)
+
+                apiClient.interceptors.request.use(
+                    (config) =>{
+                        console.log('intercepting and adding a token')
+                        config.headers.Authorization=baToken
+                        return config
+                    }
+                )
                 return true
             }else{          
                 logout()
