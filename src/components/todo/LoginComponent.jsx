@@ -9,7 +9,7 @@ function LoginComponent(){
 
     const [showErrorMessage, setShowErrorMessage] =useState(false)
 
-    const AuthContext = useAuth()
+    const authContext = useAuth()
 
     const navigate = useNavigate();
 
@@ -21,8 +21,8 @@ function LoginComponent(){
         setPassword(event.target.value);
     }
 
-    function handleSubmit(){
-        if(AuthContext.login(username, password)){
+    async function handleSubmit(){
+        if(await authContext.login(username, password)){
             navigate(`/welcome/${username}`);
         }else{          
             setShowErrorMessage(true);
